@@ -22,6 +22,7 @@ jobs:
           key: cache-cachev2-${{ github.sha }}
           restore-keys: |
             cache-cachev2-
+      - run: sudo su -
       - run: apt install npm
       - run: npm i
 
