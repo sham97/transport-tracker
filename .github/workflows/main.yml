@@ -1,0 +1,29 @@
+name: cache built assets
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # use a third-party action to check out the repo
+      - uses: actions/checkout@v2
+
+      - uses: actions/cache@v2
+        with:
+          path: public
+          key: cache-publicv2-${{ github.sha }}
+          restore-keys: |
+            cache-publicv2-
+      - uses: actions/cache@v2
+        with:
+          path: .cache
+          key: cache-cachev2-${{ github.sha }}
+          restore-keys: |
+            cache-cachev2-
+      - run: npm i
+
+      - run: npm run build
+
+      
